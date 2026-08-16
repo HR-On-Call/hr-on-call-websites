@@ -1,0 +1,147 @@
+#!/bin/bash
+#
+# Multi-site deploy hook. One repo, three docroots.
+#
+# Unlike the single-app repos (the-hr-vault, clients-on-call, practice-hub)
+# where the repo root IS the docroot, this repo holds one folder per site. So
+# instead of checking out straight into a docroot, we check out into a staging
+# directory and sync each subfolder to its own docroot, then health-check each
+# site separately.
+#
+# Config lives in deploy.conf next to this hook.
+
+set -u
+
+GITDIR="$(cd "$(dirname "$0")/.." && pwd)"
+CONF="$GITDIR/deploy.conf"
+
+[ -f "$CONF" ] || { echo "!! No deploy.conf in $GITDIR - refusing to deploy."; exit 1; }
+# shellcheck disable=SC1090
+. "$CONF"
+
+: "${STAGING:?deploy.conf must set STAGING}"
+: "${SITES:?deploy.conf must set SITES}"
+: "${OPCACHE_WAIT:=95}"
+: "${HEALTH_RETRIES:=6}"
+
+STATEFILE="$GITDIR/deployed-sha"
+UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+
+# Never sync these into a docroot. They are gitignored, so they exist ONLY on
+# the server, and clobbering them would take a site down or lose client data.
+EXCLUDES=(
+    --exclude 'uploads/'
+    --exclude 'logs/'
+    --exclude 'vendor/'
+    --exclude 'includes/secrets.php'
+    --exclude 'ats/config.php'
+    --exclude '.well-known/'
+    --exclude 'error_log'
+)
+
+# core.bare=false is required or git ignores --work-tree on a bare repo.
+G="git -c core.bare=false --git-dir=$GITDIR --work-tree=$STAGING"
+
+http_code() {
+    # A browser User-Agent is mandatory: mod_security answers 406 to bare curl,
+    # which would look like a broken site and trigger a needless rollback.
+    curl -s -o /dev/null -w "%{http_code}" -A "$UA" --max-time 25 "$1" 2>/dev/null
+}
+
+check_all_sites() {
+    local failed="" entry sub root url code i
+    for entry in $SITES; do
+        sub="${entry%%|*}"; rest="${entry#*|}"; root="${rest%%|*}"; url="${rest#*|}"
+        i=1; code=""
+        while [ "$i" -le "$HEALTH_RETRIES" ]; do
+            code="$(http_code "$url")"
+            [ "$code" = "200" ] && break
+            i=$((i + 1)); [ "$i" -le "$HEALTH_RETRIES" ] && sleep 5
+        done
+        if [ "$code" = "200" ]; then
+            echo "     OK   $sub (HTTP 200)"
+        else
+            echo "     FAIL $sub (HTTP ${code:-no-response})"
+            failed="$failed $sub"
+        fi
+    done
+    [ -z "$failed" ]
+}
+
+sync_all_sites() {
+    local entry sub root rc=0
+    for entry in $SITES; do
+        sub="${entry%%|*}"; rest="${entry#*|}"; root="${rest%%|*}"
+        if [ ! -d "$STAGING/$sub" ]; then
+            echo "     !! $sub missing from the commit, skipping"
+            rc=1; continue
+        fi
+        # No --delete, deliberately. A single missing exclude with --delete
+        # would wipe uploads, secrets.php or the .bak files that live only on
+        # the server. Overwrite-and-add is the safe trade: worst case is a
+        # stale leftover file, never data loss. Remove files by hand.
+        if rsync -a "${EXCLUDES[@]}" "$STAGING/$sub/" "$root/"; then
+            echo "     synced $sub -> $root"
+        else
+            echo "     !! rsync FAILED for $sub"
+            rc=1
+        fi
+    done
+    return $rc
+}
+
+while read -r oldrev newrev refname; do
+    [ "$refname" = "refs/heads/main" ] || { echo "-- ignoring $refname"; continue; }
+
+    PREV="$(cat "$STATEFILE" 2>/dev/null || true)"
+
+    echo "================================================================"
+    echo " Deploying ${newrev:0:8} to $(echo "$SITES" | wc -w) sites"
+    [ -n "$PREV" ] && echo " Last known good: ${PREV:0:8}"
+    echo "================================================================"
+
+    mkdir -p "$STAGING"
+
+    echo " [1/4] Checking out to staging..."
+    if ! $G checkout -f main 2>&1 | sed 's/^/     /'; then
+        echo " !! Checkout failed. Live sites untouched (nothing was synced)."
+        exit 1
+    fi
+
+    echo " [2/4] Syncing to docroots..."
+    if ! sync_all_sites; then
+        echo " !! One or more syncs failed. Check the sites now."
+        exit 1
+    fi
+
+    echo " [3/4] Waiting ${OPCACHE_WAIT}s for the PHP opcache to revalidate."
+    sleep "$OPCACHE_WAIT"
+
+    echo " [4/4] Health checks:"
+    if check_all_sites; then
+        echo "$newrev" > "$STATEFILE"
+        echo ""
+        echo " DEPLOYED OK: ${newrev:0:8} is live on all sites."
+        continue
+    fi
+
+    echo ""
+    echo " !! HEALTH CHECK FAILED."
+    if [ -z "$PREV" ]; then
+        echo " !! No previously recorded good commit, so no automatic rollback."
+        echo " !! Investigate immediately."
+        exit 1
+    fi
+
+    echo " !! Rolling back to ${PREV:0:8}..."
+    $G checkout -f "$PREV" 2>&1 | sed 's/^/     /'
+    sync_all_sites
+    echo " !! Waiting ${OPCACHE_WAIT}s then re-checking..."
+    sleep "$OPCACHE_WAIT"
+    if check_all_sites; then
+        echo " !! Rolled back successfully. ${newrev:0:8} was the bad commit."
+    else
+        echo " !! ROLLBACK DID NOT RESTORE HEALTH. Check the server."
+    fi
+    exit 1
+done
