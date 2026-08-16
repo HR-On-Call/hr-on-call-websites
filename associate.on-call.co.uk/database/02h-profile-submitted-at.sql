@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN profile_submitted_at DATETIME NULL;

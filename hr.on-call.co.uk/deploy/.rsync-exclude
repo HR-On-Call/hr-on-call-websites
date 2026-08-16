@@ -1,0 +1,37 @@
+# Rsync exclusions for practice.on-call.co.uk deployment
+# Files and directories that should NOT be synced to production
+
+# User uploads - managed separately
+uploads/
+/uploads
+
+# Dependencies - install on server
+vendor/
+node_modules/
+
+# Environment and config - server has its own
+.env
+config/
+/config
+
+# Development files
+.git/
+.gitignore
+.claude/
+deploy/
+*.log
+*.sql
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+cache/
+*.tmp

@@ -1,0 +1,126 @@
+/* ============================================================================
+   HR On Call — Vault-look reskin layer. Loaded AFTER style.css.
+   Brand colours already match (navy #1A2E4A, pink #DB2777, gold #C9A962); this
+   changes border weight, radius, shadow, hover, the type scale and the
+   header/footer chrome. NO markup or copy changes.
+
+   !important is used on contested visual properties so the treatment wins over
+   higher-specificity legacy rules (e.g. .feature-card .btn, .section h2,
+   .bg-dark .wi-card). This is a temporary override layer; when it is folded into
+   a cleaned style.css the !important can be removed.
+
+   Deliberately does NOT touch the mobile nav mechanism (.nav-links / .active /
+   .mobile-menu-toggle display + position) so the existing menu keeps working.
+   ============================================================================ */
+
+:root {
+  --oc-pink: #DB2777;
+  --oc-pink-hover: #be185d;
+  --oc-navy: #1A2E4A;
+  --oc-gold: #C9A962;
+  --oc-cream: #FBF8F2;
+  --oc-cream-border: #EFEADF;
+  --oc-radius: 9px;
+  --oc-radius-lg: 14px;
+  --oc-shadow-card: 0 4px 16px rgba(16,30,51,0.06);
+  --oc-shadow-card-hover: 0 12px 28px rgba(20,30,50,0.08);
+  --oc-shadow-pink: 0 10px 24px rgba(219,39,119,0.26);
+  --oc-footer-bg: #0A1729;
+}
+
+/* House rule: links are NEVER underlined on Grace's sites (base or hover). */
+a, a:hover, a:focus { text-decoration: none !important; }
+
+/* Legal / policy pages: clean light reading column (Vault style) */
+.legal-content { max-width: 860px; margin: 0 auto; }
+.legal-content .last-updated { color: #5A6675; margin-bottom: 1.75rem; }
+.legal-section h2 { font-size: clamp(20px, 2.2vw, 26px) !important; margin-top: 2rem; }
+.legal-section h3 { font-size: 18px; margin-top: 1.5rem; }
+.legal-section p, .legal-section li { color: #4A5568; line-height: 1.75; }
+.nav-link, .nav-link:hover { border-bottom: none !important; }
+
+/* Gold eyebrow kicker (Vault style). Add <div class="eyebrow">LABEL</div> above a heading. */
+.eyebrow { display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--oc-gold); margin-bottom: 14px; }
+.eyebrow::before { content: ""; display: inline-block; width: 24px; height: 2px; background: var(--oc-gold); vertical-align: middle; margin-right: 10px; position: relative; top: -2px; }
+.bg-dark .eyebrow, .cta-section .eyebrow { color: var(--oc-gold); }
+
+/* ----- Typography: bigger, heavier display headings, responsive via clamp ----- */
+h1, h2, h3, .hero h1, .section h2 { letter-spacing: -0.5px !important; }
+.hero h1, .hero-large h1 { font-size: clamp(2rem, 5vw, 3.4rem) !important; line-height: 1.07 !important; font-weight: 700 !important; }
+h2, .section h2, .section-alt h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem) !important; font-weight: 700 !important; line-height: 1.12 !important; }
+
+/* ----- Buttons: pink primary CTA, navy-outline ghost secondary ----- */
+.btn { border-radius: var(--oc-radius) !important; font-weight: 600 !important; letter-spacing: 0 !important; transition: background .2s, color .2s, border-color .2s, box-shadow .2s; }
+.btn-primary, .feature-card .btn.btn-primary { background: var(--oc-pink) !important; color: #fff !important; border: 1.5px solid var(--oc-pink) !important; box-shadow: var(--oc-shadow-pink) !important; }
+.btn-primary:hover { background: var(--oc-pink-hover) !important; border-color: var(--oc-pink-hover) !important; color: #fff !important; }
+.btn-secondary, .btn-outline { background: #fff !important; color: var(--oc-navy) !important; border: 1.5px solid var(--oc-navy) !important; box-shadow: none !important; }
+.btn-secondary:hover, .btn-outline:hover { background: var(--oc-navy) !important; color: #fff !important; border-color: var(--oc-navy) !important; }
+/* On dark CTA bands the ghost button reads on navy */
+.cta-section .btn-secondary, .cta-section .btn-outline, .bg-dark .btn-secondary, .bg-dark .btn-outline { background: transparent !important; color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
+.cta-section .btn-secondary:hover, .cta-section .btn-outline:hover, .bg-dark .btn-secondary:hover, .bg-dark .btn-outline:hover { background: #fff !important; color: var(--oc-navy) !important; border-color: #fff !important; }
+
+/* ----- Cards: soft 1px cream border, larger radius, subtle shadow, lift hover ----- */
+.feature-card, .pricing-card, .blog-card, .service-card, .team-card, .associate-card,
+.benefit-card, .value-card, .document-category, .resource-card, .wi-card, .step-item, .card {
+  border: 1px solid var(--oc-cream-border) !important;
+  border-radius: var(--oc-radius-lg) !important;
+  box-shadow: var(--oc-shadow-card) !important;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.feature-card:hover, .pricing-card:hover, .blog-card:hover, .service-card:hover,
+.team-card:hover, .associate-card:hover, .benefit-card:hover, .value-card:hover,
+.document-category:hover, .resource-card:hover, .wi-card:hover, .step-item:hover, .card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--oc-shadow-card-hover) !important;
+  border-color: #D8CFB8 !important;
+}
+.pricing-card.featured { border: 2px solid var(--oc-navy) !important; }
+/* The ".bg-dark" bands are actually light alternating grounds (not dark), so the
+   wi-cards on them use the same cream hairline as everywhere else. */
+.bg-dark .wi-card { border-color: var(--oc-cream-border) !important; }
+.bg-dark .wi-card-bullets { border-left-color: rgba(200,180,160,0.25) !important; }
+/* wi-card service heading sits beside the icon on ONE line. The global h2 clamp
+   above blows it up to ~2.3rem and wraps it; restore the compact original size. */
+.wi-card-intro h2 { font-size: 1.4rem !important; line-height: 1.25 !important; letter-spacing: -0.3px !important; }
+
+/* ----- Sticky translucent header with a hairline cream border ----- */
+.site-header { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.94) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-bottom: 1px solid var(--oc-cream-border) !important; }
+.nav-link:hover { color: var(--oc-pink); }
+/* Nav layout to match the Vault: logo left, links beside it, navy CTA pushed right */
+.main-nav { justify-content: flex-start !important; gap: 2rem; }
+.site-header { padding: 0.7rem 0 !important; }
+.logo-image { max-height: 44px !important; width: auto; }
+.nav-cta-group { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.nav-cta { display: inline-flex; align-items: center; background: var(--oc-navy); color: #fff !important; font-weight: 600; font-size: 14.5px; padding: 11px 22px; border-radius: var(--oc-radius); white-space: nowrap; transition: background .2s; }
+.nav-cta:hover { background: #11203a; color: #fff !important; text-decoration: none; }
+.nav-cta-ghost { display: inline-flex; align-items: center; background: #fff; color: var(--oc-navy) !important; border: 1.5px solid var(--oc-navy); font-weight: 600; font-size: 14.5px; padding: 10px 20px; border-radius: var(--oc-radius); white-space: nowrap; transition: background .2s, color .2s; }
+.nav-cta-ghost:hover { background: var(--oc-navy); color: #fff !important; text-decoration: none; }
+@media (max-width: 768px) { .main-nav { gap: 12px !important; } .nav-cta-ghost { display: none !important; } .nav-cta { padding: 9px 15px; font-size: 13.5px; } }
+.nav-dropdown-menu { border: 1px solid var(--oc-cream-border) !important; border-radius: var(--oc-radius-lg) !important; box-shadow: var(--oc-shadow-card-hover) !important; }
+@media (max-width: 768px) { .nav-links.active { background: #fff; } }
+
+/* ----- Section grounds: alternate white / cream down every page (Vault rhythm).
+   The hero is cream; each content section after it alternates. Alternation is
+   counted among the content sections themselves (CSS "of S") so the run stays a
+   clean white -> cream -> white regardless of which legacy class a section
+   carries. The closing .cta-section keeps its navy ground. A plain-class
+   fallback runs first for any browser without :nth-child(of S). ----- */
+.hero { background: var(--oc-cream) !important; }
+.section-alt { background: var(--oc-cream) !important; }
+.section::after, .hero::after { display: none !important; }
+
+/* Fallback (no "of S" support): plain sections white, bg-dark bands cream */
+.main-content > section.section:not(.cta-section) { background: #FFFFFF !important; }
+.main-content > section.section.bg-dark:not(.cta-section) { background: var(--oc-cream) !important; }
+/* Modern browsers: true positional alternation of the content sections */
+.main-content > section.section:not(.cta-section):nth-child(odd of section.section:not(.cta-section))  { background: #FFFFFF !important; }
+.main-content > section.section:not(.cta-section):nth-child(even of section.section:not(.cta-section)) { background: var(--oc-cream) !important; }
+
+/* ----- Footer: deep navy with gold UPPERCASE column heads (the Vault tell) ----- */
+.site-footer { background: var(--oc-footer-bg) !important; border-top: none !important; color: #AEBDD0 !important; }
+.site-footer .footer-section h4 { color: var(--oc-gold) !important; font-size: 12px !important; font-weight: 700 !important; letter-spacing: 1.2px !important; text-transform: uppercase !important; }
+.site-footer .footer-section a, .site-footer .footer-section p, .site-footer .footer-section li { color: #AEBDD0 !important; font-size: 14px !important; }
+.site-footer .footer-bottom, .site-footer .footer-bottom p, .site-footer .footer-bottom a { font-size: 13px !important; }
+.site-footer .footer-section a:hover { color: #fff !important; }
+.site-footer .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12) !important; color: #5E769A !important; }
+.site-footer .footer-bottom a { color: var(--oc-gold) !important; }

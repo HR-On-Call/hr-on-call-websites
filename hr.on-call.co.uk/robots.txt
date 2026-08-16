@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /process-contact.php
+Disallow: /process-referrer.php
+Disallow: /cgi-bin/
+Disallow: /config.php
+Disallow: /includes/
+
+Sitemap: https://hr.on-call.co.uk/sitemap.xml

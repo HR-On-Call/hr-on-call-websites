@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN profile_years_experience VARCHAR(100) NULL;

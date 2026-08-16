@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN profile_specialisms VARCHAR(500) NULL;

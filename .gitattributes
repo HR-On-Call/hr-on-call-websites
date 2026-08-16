@@ -1,0 +1,16 @@
+# These files are deployed to Linux servers, so keep LF line endings
+# everywhere. Without this, Git for Windows rewrites them to CRLF on
+# checkout and every file shows as changed.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.dotx binary
+*.woff binary
+*.woff2 binary
+*.ttf binary

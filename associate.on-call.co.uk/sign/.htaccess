@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /sign/
+
+# If the request is not for an existing file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite everything to sign-form.php
+RewriteRule ^(.*)$ sign-form.php [L,QSA]

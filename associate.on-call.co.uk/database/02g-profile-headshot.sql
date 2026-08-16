@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN profile_headshot VARCHAR(500) NULL;

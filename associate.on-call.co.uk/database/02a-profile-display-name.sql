@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN profile_display_name VARCHAR(255) NULL;

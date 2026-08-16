@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associate On Call - Retainer Packages</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #FDFCFA;
+            color: #1B365D;
+        }
+
+        .flyer {
+            width: 794px;
+            height: 1123px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 35px 40px;
+            overflow: hidden;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                background: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .flyer {
+                width: 210mm;
+                min-height: 297mm;
+                padding: 10mm;
+                margin: 0;
+                box-shadow: none;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #C9A962;
+        }
+
+        .logo {
+            max-width: 160px;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1B365D;
+            margin-bottom: 3px;
+        }
+
+        .header p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Intro */
+        .intro {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-radius: 8px;
+        }
+
+        .intro p {
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* Packages Grid */
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .package {
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            padding: 18px 14px;
+            background: #fff;
+        }
+
+        .package.featured {
+            border-color: #DB2777;
+            position: relative;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #DB2777;
+            color: #fff;
+            padding: 3px 12px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .package h3 {
+            font-size: 15px;
+            color: #1B365D;
+            margin-bottom: 2px;
+            text-align: center;
+        }
+
+        .package .subtitle {
+            font-size: 10px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .package .price {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .package .price .amount {
+            font-size: 30px;
+            font-weight: 700;
+            color: #DB2777;
+        }
+
+        .package .price .period {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .package ul {
+            list-style: none;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .package ul li {
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 3px;
+        }
+
+        .package ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: bold;
+        }
+
+        /* Two Column Section */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* PAYG Rates */
+        .payg-box {
+            background: #1B365D;
+            color: #fff;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        .payg-box h2 {
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #C9A962;
+        }
+
+        .payg-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .payg-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        .payg-item .rate {
+            font-weight: 600;
+            color: #FDE68A;
+        }
+
+        .payg-note {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 10px;
+            color: #10B981;
+            font-weight: 500;
+        }
+
+        /* Bespoke Drafting */
+        .drafting-box {
+            background: #F9FAFB;
+            border: 2px solid #C9A962;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        .drafting-box h2 {
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1B365D;
+        }
+
+        .drafting-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .drafting-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            padding: 5px 8px;
+            background: #fff;
+            border-radius: 4px;
+        }
+
+        .drafting-item .price {
+            font-weight: 600;
+            color: #DB2777;
+        }
+
+        .drafting-note {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 10px;
+            color: #1B365D;
+            font-weight: 500;
+        }
+
+        /* Support Types */
+        .support-types {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .support-types h2 {
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #1B365D;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .support-item h4 {
+            font-size: 11px;
+            margin-bottom: 3px;
+            color: #1B365D;
+        }
+
+        .support-item p {
+            font-size: 9px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* What's Included */
+        .included {
+            margin-bottom: 12px;
+        }
+
+        .included h2 {
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #1B365D;
+        }
+
+        .included-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .included-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px;
+            font-size: 9px;
+            padding: 5px 8px;
+            background: #F9FAFB;
+            border-radius: 4px;
+        }
+
+        .included-item .icon {
+            color: #DB2777;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 10px;
+            border-top: 2px solid #C9A962;
+        }
+
+        .footer h3 {
+            font-size: 12px;
+            color: #1B365D;
+            margin-bottom: 3px;
+        }
+
+        .footer p {
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 11px;
+        }
+
+        .contact-info span {
+            color: #1B365D;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .action-btn {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 25px;
+            background: #DB2777;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: #BE185D;
+        }
+
+        .action-btn.secondary {
+            background: #1B365D;
+        }
+
+        .action-btn.secondary:hover {
+            background: #0f1f38;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="max-width: 600px; margin: 20px auto; padding: 20px; background: #FEF3C7; border-radius: 8px; font-family: 'Poppins', sans-serif; text-align: center;">
+        <h3 style="margin: 0 0 15px 0; color: #1B365D; font-size: 16px;">Download Options</h3>
+        <button class="action-btn" onclick="downloadAsImage()">Download as PNG Image</button>
+        <button class="action-btn secondary" onclick="window.print()">Print / Save as PDF</button>
+        <p style="margin-top: 15px; font-size: 12px; color: #666;">For PDF: In print dialog, uncheck "Headers and footers" and set margins to "None"</p>
+    </div>
+
+    <div class="flyer">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://associate.on-call.co.uk/assets/images/associate-on-call-logo-light.webp" alt="Associate On Call" class="logo">
+            <h1>Retainer Packages</h1>
+            <p>Expert HR associate support for your consultancy</p>
+        </div>
+
+        <!-- Intro -->
+        <div class="intro">
+            <p><strong>Expand your capacity without the overhead.</strong> Our CIPD-qualified associates provide flexible support with guaranteed capacity, professional tools and better rates on a monthly retainer.</p>
+        </div>
+
+        <!-- Packages -->
+        <div class="packages">
+            <div class="package">
+                <h3>The Essentials</h3>
+                <p class="subtitle">Occasional backup and tools</p>
+                <div class="price">
+                    <span class="amount">£175</span>
+                    <span class="period">/month</span>
+                </div>
+                <ul>
+                    <li>2 hours Admin & Advisory support</li>
+                    <li>48-hour response time (Mon-Fri)</li>
+                    <li>Max 2 hours banked rollover</li>
+                    <li>Additional Admin: £40/hr</li>
+                    <li>Additional Advisory: £55/hr</li>
+                    <li>Specialist support: £75/hr</li>
+                    <li>Full access to The HR Vault</li>
+                    <li>40% off bespoke drafting</li>
+                    <li>3-month initial term</li>
+                </ul>
+            </div>
+
+            <div class="package featured">
+                <span class="package-badge">Most Popular</span>
+                <h3>The Partnership</h3>
+                <p class="subtitle">The sweet spot</p>
+                <div class="price">
+                    <span class="amount">£295</span>
+                    <span class="period">/month</span>
+                </div>
+                <ul>
+                    <li>4 hours Admin & Advisory support</li>
+                    <li>48-hour response time (Mon-Fri)</li>
+                    <li>Max 4 hours banked rollover</li>
+                    <li>Additional Admin: £40/hr</li>
+                    <li>Additional Advisory: £55/hr</li>
+                    <li>Specialist support: £75/hr</li>
+                    <li>Full access to The HR Vault</li>
+                    <li>40% off bespoke drafting</li>
+                    <li>3-month initial term</li>
+                </ul>
+            </div>
+
+            <div class="package">
+                <h3>The Full Support</h3>
+                <p class="subtitle">Consistent partnership</p>
+                <div class="price">
+                    <span class="amount">£655</span>
+                    <span class="period">/month</span>
+                </div>
+                <ul>
+                    <li>10 hours Admin & Advisory support</li>
+                    <li>24-hour response time (Mon-Fri)</li>
+                    <li>Max 5 hours banked rollover</li>
+                    <li>Additional Admin: £40/hr</li>
+                    <li>Additional Advisory: £55/hr</li>
+                    <li>Specialist support: £70/hr</li>
+                    <li>Full access to The HR Vault</li>
+                    <li>50% off bespoke drafting</li>
+                    <li>3-month initial term</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Two Column: PAYG & Drafting -->
+        <div class="two-col">
+            <div class="payg-box">
+                <h2>Pay As You Go Rates</h2>
+                <div class="payg-grid">
+                    <div class="payg-item">
+                        <span>Admin Support</span>
+                        <span class="rate">£50/hr</span>
+                    </div>
+                    <div class="payg-item">
+                        <span>Advisory Support</span>
+                        <span class="rate">£65/hr</span>
+                    </div>
+                    <div class="payg-item">
+                        <span>Specialist Support</span>
+                        <span class="rate">£85/hr</span>
+                    </div>
+                    <div class="payg-item">
+                        <span>Interim Cover</span>
+                        <span class="rate">from £150/hr</span>
+                    </div>
+                </div>
+                <p class="payg-note">Retainer members save up to £15/hr</p>
+            </div>
+
+            <div class="drafting-box">
+                <h2>Bespoke Drafting Services</h2>
+                <div class="drafting-grid">
+                    <div class="drafting-item">
+                        <span>Settlement Agreement</span>
+                        <span class="price">£500</span>
+                    </div>
+                    <div class="drafting-item">
+                        <span>COT3 Form</span>
+                        <span class="price">£200</span>
+                    </div>
+                    <div class="drafting-item">
+                        <span>Bespoke Policy</span>
+                        <span class="price">£400</span>
+                    </div>
+                    <div class="drafting-item">
+                        <span>Employment Contract</span>
+                        <span class="price">£400</span>
+                    </div>
+                </div>
+                <p class="drafting-note">Retainer clients save 40-50% on all drafting</p>
+            </div>
+        </div>
+
+        <!-- Support Types -->
+        <div class="support-types">
+            <h2>Three Levels of Support</h2>
+            <div class="support-grid">
+                <div class="support-item">
+                    <h4>Admin Support</h4>
+                    <p>Contracts, letters, policy formatting, HRIS data entry, documentation and general HR administration.</p>
+                </div>
+                <div class="support-item">
+                    <h4>Advisory Support</h4>
+                    <p>Sounding board, policy guidance, manager coaching, talent and recruitment advice, L&D support.</p>
+                </div>
+                <div class="support-item">
+                    <h4>Specialist Support</h4>
+                    <p>ER cases, investigations, employment law advisory, TUPE, redundancy, WP and ACAS negotiations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's Included -->
+        <div class="included">
+            <h2>All Retainers Include</h2>
+            <div class="included-grid">
+                <div class="included-item">
+                    <span class="icon">★</span>
+                    <span>Full access to The HR Vault templates</span>
+                </div>
+                <div class="included-item">
+                    <span class="icon">★</span>
+                    <span>Time tracked in 6-minute increments</span>
+                </div>
+                <div class="included-item">
+                    <span class="icon">★</span>
+                    <span>Unused hours roll over monthly</span>
+                </div>
+                <div class="included-item">
+                    <span class="icon">★</span>
+                    <span>CIPD-qualified associate support</span>
+                </div>
+                <div class="included-item">
+                    <span class="icon">★</span>
+                    <span>Discounted bespoke drafting rates</span>
+                </div>
+                <div class="included-item">
+                    <span class="icon">★</span>
+                    <span>Rolling monthly after 3-month term</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>Ready to Expand Your Consultancy's Capabilities?</h3>
+            <p>Book a discovery call or get in touch to discuss your needs</p>
+            <div class="contact-info">
+                <span>associate.on-call.co.uk</span>
+                <span>hello@on-call.co.uk</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadAsImage() {
+            const flyer = document.querySelector('.flyer');
+            html2canvas(flyer, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'associate-on-call-retainer-packages.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>

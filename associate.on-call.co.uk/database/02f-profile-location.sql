@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN profile_location VARCHAR(255) NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE applicants ADD COLUMN vat_registered TINYINT(1) DEFAULT 0 AFTER referral_source;

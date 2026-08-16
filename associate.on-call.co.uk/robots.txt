@@ -1,0 +1,16 @@
+# robots.txt for associate.on-call.co.uk
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /ats/
+Disallow: /sign/
+Disallow: /database/
+Disallow: /includes/
+Disallow: /config.php
+Disallow: /process-*.php
+Disallow: /*-success.php
+Disallow: /*-thanks.php
+
+# Sitemap location
+Sitemap: https://associate.on-call.co.uk/sitemap.xml

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR On Call | Remote HR Consultants for UK Businesses</title>
+    <meta name="description" content="Chartered HR consultants delivering practical, commercial HR support to businesses across the UK. Expert employment law advice, HR outsourcing and employee relations support.">
+    <meta name="keywords" content="HR consultant, Human Resources, remote HR, UK, HR consultancy, employment law, HR outsourcing, CIPD, chartered, virtual HR">
+    <link rel="stylesheet" href="style-v2.css">
+    <link rel="icon" href="Img/favicon.ico">
+    <link rel="icon" href="Img/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="Img/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="Img/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="apple-touch-icon" href="Img/apple-touch-icon.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <!-- Updated with new logo path -->
+                <a href="index.php">
+                    <img src="Img/logo-long.webp" alt="Grace Pariser Human Resources" class="logo">
+                </a>
+            </div>
+
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="index.php" class="nav-link home">Home</a></li>
+                    <li><a href="about.php" class="nav-link about">About</a></li>                    
+                    <li><a href="services.php" class="nav-link services">Services</a></li>
+                    <li><a href="contact.php" class="nav-link contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn" id="mobile-menu-btn">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        // Highlight active navigation link
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentPage = window.location.pathname.split("/").pop();
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                
+                // Match the current page to its corresponding nav link
+                if (currentPage === "" || currentPage === "/") {
+                    document.querySelector('.nav-link.home').classList.add('active');
+                } else if (currentPage === "index" || currentPage === "index.php") {
+                    document.querySelector('.nav-link.home').classList.add('active');
+                } else if (currentPage.includes("about")) {
+                    document.querySelector('.nav-link.about').classList.add('active');
+                } else if (currentPage.includes("services")) {
+                    document.querySelector('.nav-link.services').classList.add('active');
+                } else if (currentPage.includes("contact")) {
+                    document.querySelector('.nav-link.contact').classList.add('active');
+                }
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const navMenu = document.getElementById('nav-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? '✕' : '☰';
+            });
+        });
+    </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V7R7JP3J8T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V7R7JP3J8T');
+</script>
+</body>
+</html>

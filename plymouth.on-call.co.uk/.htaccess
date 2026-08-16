@@ -1,0 +1,48 @@
+# Enable mod_rewrite
+RewriteEngine On
+
+# Serve the dynamically generated sitemap at /sitemap.xml
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# Remove .php extension from URLs
+# If the request doesn't exist as a file or directory, try adding .php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+# Redirect .php URLs to clean URLs (301) - GET requests only
+# (stripping .php on POST would convert POST to GET and drop form data)
+RewriteCond %{REQUEST_METHOD} !POST
+RewriteCond %{THE_REQUEST} \s/+([^?\s]+)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Error handling
+ErrorDocument 404 /index.php
+
+# Security - prevent directory listing
+Options -Indexes
+
+# Security - prevent access to sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Cache settings for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php81” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php81 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

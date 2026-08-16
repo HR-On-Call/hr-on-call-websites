@@ -1,0 +1,52 @@
+# =====================================================================
+# HR On Call marketing sites (hr / associate / plymouth subdomains)
+# One repo, three docroots. See deploy/README.md.
+# =====================================================================
+
+# ---- SECRETS. Real keys live on the server only.
+# secrets.php holds the Brevo API key and the reCAPTCHA SECRET key. The
+# reCAPTCHA SITE key is public (it is rendered into the page) and stays in git.
+# ats/config.php holds the database password.
+# NOTE: patterns below are deliberately unanchored (**/ or bare name).
+# A pattern containing a slash, e.g. "ats/config.php", is anchored to the repo
+# ROOT and would NOT match associate.on-call.co.uk/ats/config.php. That mistake
+# let a Brevo key reach a commit; GitHub push protection caught it.
+**/includes/secrets.php
+secrets.php
+**/ats/config.php
+.env
+.env.local
+.claude/
+
+# ---- Runtime output and user data
+uploads/
+logs/
+error_log
+*.log
+
+# ---- Composer dependencies (restore with: composer install)
+vendor/
+
+# ---- Old hand-made backup copies. Git history replaces these.
+*.bak
+*.bak-*
+*.bak.*
+*.backup
+*~
+
+# ---- Large media: keep on the server, git handles binaries badly.
+# Two 84MB/31MB demo videos were removed from these sites on 2026-08-16;
+# they were unreferenced duplicates of the ones on the CRM.
+*.mp4
+*.mov
+*.zip
+
+# ---- Server-managed
+.well-known/
+cgi-bin/
+
+# ---- OS and editor cruft (desktop.ini appears because of OneDrive)
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp

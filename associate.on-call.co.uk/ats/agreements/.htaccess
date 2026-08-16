@@ -1,0 +1,3 @@
+# Deny direct access to agreement PDFs
+# Must be served through PHP for authentication
+Deny from all

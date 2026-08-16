@@ -1,0 +1,41 @@
+# Enable mod_rewrite
+RewriteEngine On
+
+# Accountant referral scheme retired entirely (2026-06-24) -> 301 to home.
+# Covers the landing page, the scheme T&Cs and the form handler, both clean and .php URLs.
+# Placed before the clean-URL rules so it takes precedence.
+RewriteRule ^(accountants|referral-terms|process-referrer)(\.php)?/?$ / [R=301,L]
+
+# Remove .php extension from URLs
+# If the request doesn't exist as a file or directory, try adding .php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+# Redirect .php URLs to clean URLs (301)
+RewriteCond %{THE_REQUEST} \s/+([^?\s]+)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Error handling
+ErrorDocument 404 /index.php
+
+# Security - prevent directory listing
+Options -Indexes
+
+# Security - prevent access to sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Cache settings for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

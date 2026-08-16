@@ -1,0 +1,1 @@
+ALTER TABLE associates MODIFY COLUMN last_login DATETIME NULL;

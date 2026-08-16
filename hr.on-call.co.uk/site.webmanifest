@@ -1,0 +1,26 @@
+{
+    "name": "HR On Call",
+    "short_name": "HR On Call",
+    "description": "Chartered HR consultants delivering expert remote HR support to businesses across the UK.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FDFCFA",
+    "theme_color": "#1A2E4A",
+    "icons": [
+        {
+            "src": "https://hr.on-call.co.uk/Img/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "https://hr.on-call.co.uk/Img/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "https://hr.on-call.co.uk/Img/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}
