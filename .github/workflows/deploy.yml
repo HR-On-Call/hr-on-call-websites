@@ -1,0 +1,42 @@
+name: Deploy to live
+
+# Fires on any push to main, including a Pull Request merged from the GitHub
+# web UI or the mobile app, so deploys do not depend on one laptop.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-live-hr-on-call-websites
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # This repo deploys THREE sites and waits 95s for the opcache, and a
+    # rollback repeats that wait, so allow generous headroom.
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install deploy key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p 2222 209.182.203.135 >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Push to live server
+        # The server hooks do the real work: pre-receive parses every PHP file
+        # and rejects the push if any fail (live untouched), then post-receive
+        # checks out to a staging dir, rsyncs each site folder to its own
+        # docroot, waits out the opcache, health-checks all three public URLs
+        # and rolls back if any is unhealthy.
+        run: |
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/deploy_key -p 2222 -o IdentitiesOnly=yes"
+          git push ssh://nfc6da5@209.182.203.135/home/nfc6da5/git/hr-on-call-websites.git HEAD:main
