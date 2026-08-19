@@ -132,6 +132,24 @@ include 'includes/header.php';
           </ul>
         </div>
       </div>
+
+      <div class="oc-srv">
+        <div class="oc-srv-intro">
+          <div class="oc-srv-head">
+            <div class="oc-ico"><i class="fas fa-search"></i></div>
+            <h3>Document Reviews</h3>
+          </div>
+          <div style="font-size:20px; font-weight:700; color:var(--pink); margin:0 0 14px;">£400 + VAT</div>
+          <p>A full review of your existing HR documentation to ensure it complies with current employment legislation, data protection rules and any specific requirements for your industry.</p>
+        </div>
+        <div class="oc-srv-bullets">
+          <ul class="oc-ticklist">
+            <li>Tracked changes and comments in your documents</li>
+            <li>A summary of changes and further advice</li>
+            <li>Covers employment law, data protection and industry-specific requirements</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -226,7 +244,7 @@ include 'includes/header.php';
     "@type": "Service",
     "serviceType": "Employment Document Drafting",
     "name": "Employment Contracts & HR Documents",
-    "description": "Fixed-fee employment contracts, employee handbooks, ACAS early conciliation support and settlement agreements for businesses in Plymouth, Devon and Cornwall.",
+    "description": "Fixed-fee employment contracts, employee handbooks, ACAS early conciliation support, settlement agreements and HR document reviews for businesses in Plymouth, Devon and Cornwall.",
     "provider": {
         "@type": "LocalBusiness",
         "name": "HR On Call",
@@ -240,9 +258,9 @@ include 'includes/header.php';
     "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "GBP",
-        "lowPrice": "500",
+        "lowPrice": "400",
         "highPrice": "1500",
-        "description": "Employment contracts and handbooks from £600, ACAS support from £500, settlement agreements £750, and the HR Bundle at £1,500 – all plus VAT."
+        "description": "Employment contracts and handbooks from £600, ACAS support from £500, settlement agreements £750, document reviews £400, and the HR Bundle at £1,500 – all plus VAT."
     }
 }
 </script>
