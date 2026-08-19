@@ -67,8 +67,9 @@
         <div class="container">
             <nav class="main-nav">
                 <div class="nav-brand">
-                    <a href="<?php echo SITE_URL; ?>">
+                    <a href="<?php echo SITE_URL; ?>" style="position:relative;">
                         <img src="<?php echo SITE_URL; ?>/assets/images/hr-on-call-logo-light.webp?v=2" alt="<?php echo SITE_NAME; ?>" class="logo-image">
+                        <span style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;">HR On Call</span>
                     </a>
                 </div>
 
