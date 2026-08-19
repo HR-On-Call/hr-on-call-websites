@@ -99,6 +99,24 @@ include 'includes/header.php';
       <div class="oc-srv">
         <div class="oc-srv-intro">
           <div class="oc-srv-head">
+            <div class="oc-ico"><i class="fas fa-search"></i></div>
+            <h3>Document Reviews</h3>
+          </div>
+          <div style="font-size:20px; font-weight:700; color:var(--pink); margin:0 0 14px;">£400 + VAT <span style="font-size:0.6em; font-weight:400;">per document</span></div>
+          <p>A full review of an existing contract, handbook or any other employment document, to ensure it complies with current employment legislation, data protection rules and any specific requirements for your industry.</p>
+        </div>
+        <div class="oc-srv-bullets">
+          <ul class="oc-ticklist">
+            <li>Tracked changes and comments in your documents</li>
+            <li>A summary of changes and further advice</li>
+            <li>Covers employment law, data protection and industry-specific requirements</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="oc-srv">
+        <div class="oc-srv-intro">
+          <div class="oc-srv-head">
             <div class="oc-ico"><i class="fas fa-comments"></i></div>
             <h3>ACAS Early Conciliation Support</h3>
           </div>
@@ -129,24 +147,6 @@ include 'includes/header.php';
             <li>Resolve employment disputes cleanly and legally</li>
             <li>Protects both parties</li>
             <li>Avoids potential tribunal claims</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="oc-srv">
-        <div class="oc-srv-intro">
-          <div class="oc-srv-head">
-            <div class="oc-ico"><i class="fas fa-search"></i></div>
-            <h3>Document Reviews</h3>
-          </div>
-          <div style="font-size:20px; font-weight:700; color:var(--pink); margin:0 0 14px;">£400 + VAT</div>
-          <p>A full review of your existing HR documentation to ensure it complies with current employment legislation, data protection rules and any specific requirements for your industry.</p>
-        </div>
-        <div class="oc-srv-bullets">
-          <ul class="oc-ticklist">
-            <li>Tracked changes and comments in your documents</li>
-            <li>A summary of changes and further advice</li>
-            <li>Covers employment law, data protection and industry-specific requirements</li>
           </ul>
         </div>
       </div>
@@ -260,7 +260,7 @@ include 'includes/header.php';
         "priceCurrency": "GBP",
         "lowPrice": "400",
         "highPrice": "1500",
-        "description": "Employment contracts and handbooks from £600, ACAS support from £500, settlement agreements £750, document reviews £400, and the HR Bundle at £1,500 – all plus VAT."
+        "description": "Employment contracts and handbooks from £600, ACAS support from £500, document reviews £400 per document, settlement agreements £750, and the HR Bundle at £1,500 – all plus VAT."
     }
 }
 </script>
