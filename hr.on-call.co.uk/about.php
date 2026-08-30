@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 
-$pageTitle = 'About';
-$pageDescription = 'Meet the HR On Call team. Grace Pariser and our experienced HR consultants deliver expert remote HR support to businesses across the UK.';
+$pageTitle = 'About Grace Pariser, Founder & HR Consultant';
+$pageDescription = 'Grace Pariser is the CIPD Level 7 qualified founder of HR On Call, specialising in employment law, workplace investigations and complex employee relations for UK employers.';
 $pageKeywords = 'HR On Call, Grace Pariser HR consultant, CIPD qualified, workplace investigation specialist, disciplinary hearing support, grievance hearing support, remote HR consultant UK';
 
 $rebuilt = true; // Built on the Vault (oc) template; skip the legacy reskin layer
@@ -10,6 +10,33 @@ $additionalCSS = ['/assets/css/oc.css?v=' . @filemtime(__DIR__ . '/assets/css/oc
 
 include 'includes/header.php';
 ?>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Grace Pariser",
+    "jobTitle": "Founder & Lead HR Consultant",
+    "url": "https://hr.on-call.co.uk/about",
+    "image": "https://hr.on-call.co.uk/assets/images/grace-pariser-profile-v2.webp",
+    "worksFor": {
+        "@type": "Organization",
+        "name": "HR On Call",
+        "url": "https://hr.on-call.co.uk"
+    },
+    "alumniOf": "CIPD Level 7",
+    "knowsAbout": [
+        "Employment Law",
+        "Workplace Investigations",
+        "Disciplinary Hearings",
+        "Grievance Procedures",
+        "Employee Relations"
+    ],
+    "sameAs": [
+        "https://www.linkedin.com/in/grace-pariser/"
+    ]
+}
+</script>
 
 <div class="oc">
 
@@ -29,6 +56,7 @@ include 'includes/header.php';
         <img src="assets/images/grace-pariser-profile-v2.webp" alt="Grace Pariser, HR Consultant" loading="lazy" style="box-shadow:0 18px 44px rgba(16,30,51,.16);">
         <div style="font-size:18px; font-weight:700; color:var(--navy); margin-top:18px;">Grace Pariser</div>
         <div style="font-size:14px; color:var(--soft);">Founder &amp; HR Consultant</div>
+        <a href="https://www.linkedin.com/in/grace-pariser/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:7px; margin-top:12px; font-size:13.5px; font-weight:600; color:var(--navy);"><i class="fab fa-linkedin" style="color:var(--gold); font-size:15px;"></i> Connect with Grace</a>
       </div>
       <div>
         <div class="oc-eyebrow"><span></span>Our Approach</div>
@@ -81,7 +109,7 @@ include 'includes/header.php';
       </div>
       <div class="oc-split" style="margin-top:44px; align-items:center;">
         <div style="text-align:center;">
-          <img src="assets/images/grace-headshot-2.webp" alt="Grace Pariser" loading="lazy" style="width:240px; height:240px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(0,0,0,.3); display:inline-block; border:3px solid var(--gold);">
+          <img src="assets/images/grace-headshot-2026.jpg" alt="Grace Pariser" loading="lazy" style="width:240px; height:240px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(0,0,0,.3); display:inline-block; border:3px solid var(--gold);">
         </div>
         <div>
           <h3 style="color:#fff; font-size:24px;">Grace Pariser</h3>

@@ -107,6 +107,24 @@ include 'includes/header.php';
       <div class="oc-srv">
         <div class="oc-srv-intro">
           <div class="oc-srv-head">
+            <div class="oc-ico"><i class="fas fa-search"></i></div>
+            <h3>Document Reviews</h3>
+          </div>
+          <div style="font-size:20px; font-weight:700; color:var(--pink); margin:0 0 14px;">£400 + VAT <span style="font-size:0.6em; font-weight:400;">per document</span></div>
+          <p>Already have a contract, handbook or other employment document in place? We'll check it line by line against current employment law, data protection rules and anything specific to your sector, then send it back with our recommendations.</p>
+        </div>
+        <div class="oc-srv-bullets">
+          <ul class="oc-ticklist">
+            <li>Your document reviewed and marked up with tracked changes and comments</li>
+            <li>A written summary of what we've changed and why, plus further advice</li>
+            <li>Covers employment law, data protection and sector-specific requirements</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="oc-srv">
+        <div class="oc-srv-intro">
+          <div class="oc-srv-head">
             <div class="oc-ico"><i class="fas fa-comments"></i></div>
             <h3>ACAS Early Conciliation</h3>
           </div>
