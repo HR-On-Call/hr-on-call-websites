@@ -85,7 +85,7 @@ include 'includes/header.php';
       </div>
       <div class="oc-split" style="margin-top:44px; align-items:center;">
         <div style="text-align:center;">
-          <img src="/assets/images/grace-pariser-headshot.jpg" width="400" height="400" alt="Grace Pariser" loading="lazy" style="width:240px; height:240px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(0,0,0,.3); display:inline-block; border:3px solid var(--gold);">
+          <img src="/assets/images/grace-headshot-2026.jpg" width="400" height="400" alt="Grace Pariser" loading="lazy" style="width:240px; height:240px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(0,0,0,.3); display:inline-block; border:3px solid var(--gold);">
         </div>
         <div>
           <h3 style="color:#fff; font-size:24px;">Grace Pariser</h3>
