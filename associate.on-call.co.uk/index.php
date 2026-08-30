@@ -36,7 +36,7 @@ include 'includes/header.php';
   <section class="oc-sec oc-cream">
     <div class="oc-wrap oc-split">
       <div style="text-align:center;">
-        <img src="<?php echo SITE_URL; ?>/assets/images/grace-headshot.png" alt="Grace Pariser, Founder &amp; Lead Consultant" loading="lazy" style="width:230px; height:230px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(16,30,51,.18); display:inline-block;">
+        <img src="<?php echo SITE_URL; ?>/assets/images/grace-headshot-2026.jpg" alt="Grace Pariser, Founder &amp; Lead Consultant" loading="lazy" style="width:230px; height:230px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(16,30,51,.18); display:inline-block;">
         <div style="font-size:18px; font-weight:700; color:var(--navy); margin-top:18px;">Grace Pariser</div>
         <div style="font-size:14px; color:var(--soft);">Founder &amp; Lead Consultant</div>
       </div>
