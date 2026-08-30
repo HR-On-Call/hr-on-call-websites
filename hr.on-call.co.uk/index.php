@@ -70,7 +70,7 @@ include 'includes/header.php';
   <section class="oc-sec" style="background:#FBF8F2; border-top:1px solid #EFEADF; border-bottom:1px solid #EFEADF;">
     <div class="oc-wrap oc-split">
       <div style="text-align:center;">
-        <img src="assets/images/grace-headshotv2.webp" alt="Grace Pariser, Founder & HR Consultant" loading="lazy" style="width:230px; height:230px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(16,30,51,.18); display:inline-block;">
+        <img src="assets/images/grace-headshot-2026.jpg" alt="Grace Pariser, Founder & HR Consultant" loading="lazy" style="width:230px; height:230px; border-radius:50%; object-fit:cover; box-shadow:0 18px 44px rgba(16,30,51,.18); display:inline-block;">
         <div style="font-size:18px; font-weight:700; color:var(--navy); margin-top:20px;">Grace Pariser</div>
         <div style="font-size:14px; color:var(--soft);">Founder &amp; HR Consultant</div>
         <a href="https://www.linkedin.com/in/grace-pariser/" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:7px; margin-top:12px; font-size:13.5px; font-weight:600; color:var(--navy);"><i class="fab fa-linkedin" style="color:var(--gold); font-size:15px;"></i> Connect with Grace</a>
