@@ -46,6 +46,11 @@
                 Registered office: <?php echo REGISTERED_OFFICE; ?>.</p>
                 <p><a href="<?php echo SITE_URL; ?>/privacy-policy.php">Privacy Policy</a> |
                 <a href="<?php echo SITE_URL; ?>/cookie-policy.php">Cookie Policy</a></p>
+                <p style="margin-top:12px;">
+                    <a href="https://registry.blockmarktech.com/certificates/65075c56-85b4-4d09-8677-47cd2f1de252/active/?source=email" target="_blank" rel="noopener noreferrer" style="display:inline-block; text-decoration:none;">
+                        <img src="https://registry.blockmarktech.com/certificates/65075c56-85b4-4d09-8677-47cd2f1de252/email-image/?width=178&amp;height=178&amp;image=ddbdf035-54b9-4d92-b4c6-d7fc7882377c" alt="Cyber Essentials certified" width="70" height="70" style="display:inline-block;">
+                    </a>
+                </p>
             </div>
         </div>
     </footer>
