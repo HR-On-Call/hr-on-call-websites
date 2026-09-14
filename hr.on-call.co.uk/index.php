@@ -26,6 +26,13 @@ include 'includes/header.php';
           <a href="#services" class="oc-btn oc-pink">View Services <i class="fas fa-arrow-right" style="font-size:14px;"></i></a>
           <a href="contact.php" class="oc-btn oc-ghost">Get in Touch</a>
         </div>
+        <div class="oc-press">
+          <span class="oc-press-label">As seen in</span>
+          <span class="oc-press-logos">
+            <a href="https://www.telegraph.co.uk" target="_blank" rel="noopener"><img src="assets/images/press/telegraph.svg" alt="The Telegraph"></a>
+            <a href="https://www.personneltoday.com" target="_blank" rel="noopener"><img src="assets/images/press/personnel-today.png" alt="Personnel Today" class="oc-press-pt"></a>
+          </span>
+        </div>
       </div>
       <div class="oc-rev">
         <div class="oc-stars">&starf;&starf;&starf;&starf;&starf;</div>
