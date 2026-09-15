@@ -16,7 +16,11 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($isHomepage) && $isHomepage ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME); ?></title>
+    <?php
+    $fullTitle = (isset($isHomepage) && $isHomepage) ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME);
+    $canonicalUrl = SITE_URL . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    ?>
+    <title><?php echo $fullTitle; ?></title>
     <meta name="description" content="<?php echo $pageDescription ?? 'HR On Call - Expert HR consultants delivering employment law advice, workplace investigations, disciplinary and grievance support to businesses across the UK.'; ?>">
     <meta name="author" content="HR On Call Ltd">
     <meta name="keywords" content="<?php echo $pageKeywords ?? 'HR On Call, HR consultant UK, remote HR support, HR services UK, employment law advice, HR outsourcing, online HR consultant'; ?>">
@@ -25,10 +29,10 @@
     <meta name="geo.region" content="GB">
     <meta name="geo.placename" content="United Kingdom">
 
-    <meta property="og:title" content="<?php echo isset($isHomepage) && $isHomepage ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME); ?>">
+    <meta property="og:title" content="<?php echo $fullTitle; ?>">
     <meta property="og:description" content="<?php echo $pageDescription ?? 'HR On Call - Expert HR consultants delivering employment law advice, workplace investigations, disciplinary and grievance support to businesses across the UK.'; ?>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<?php echo SITE_URL . $_SERVER['REQUEST_URI']; ?>">
+    <meta property="og:url" content="<?php echo $canonicalUrl; ?>">
     <meta property="og:site_name" content="HR On Call">
     <meta property="og:image" content="<?php echo SITE_URL; ?>/assets/images/national-og.png">
     <meta property="og:image:width" content="1200">
@@ -37,7 +41,7 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?php echo isset($isHomepage) && $isHomepage ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME); ?>">
+    <meta name="twitter:title" content="<?php echo $fullTitle; ?>">
     <meta name="twitter:description" content="<?php echo $pageDescription ?? 'HR On Call - Expert HR consultants delivering employment law advice, workplace investigations, disciplinary and grievance support to businesses across the UK.'; ?>">
     <meta name="twitter:image" content="<?php echo SITE_URL; ?>/assets/images/national-og.png">
 
@@ -51,7 +55,7 @@
     <link rel="apple-touch-icon" href="/assets/images/favicon-192x192.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#1A2E4A">
-    <link rel="canonical" href="<?php echo SITE_URL . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>">
+    <link rel="canonical" href="<?php echo $canonicalUrl; ?>">
 
     <link rel="stylesheet" href="/assets/css/style.css?v=24">
     <?php if (empty($rebuilt)): // legacy Vault-look reskin layer, only for pages not yet fully rebuilt ?>
@@ -71,134 +75,135 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Structured Data - WebSite -->
+    <!-- Structured Data: one linked graph, not separate disconnected blocks,
+         so Google can resolve a single coherent entity for the brand. -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "HR On Call",
-        "url": "https://hr.on-call.co.uk"
-    }
-    </script>
-
-    <!-- Structured Data - Organization -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "HR On Call",
-        "url": "https://hr.on-call.co.uk",
-        "logo": "https://hr.on-call.co.uk/assets/images/favicon-512x512.png"
-    }
-    </script>
-
-    <!-- Structured Data - ProfessionalService -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "@id": "https://hr.on-call.co.uk/#business",
-        "name": "HR On Call",
-        "image": "https://hr.on-call.co.uk/assets/images/grace-pariser-profile-v2.webp",
-        "url": "https://hr.on-call.co.uk",
-        "telephone": "01752 425526",
-        "email": "grace@on-call.co.uk",
-        "founder": {
-            "@type": "Person",
-            "name": "Grace Pariser",
-            "jobTitle": "Founder & Lead HR Consultant",
-            "url": "https://hr.on-call.co.uk/about"
-        },
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "GB"
-        },
-        "description": "Expert HR consultants providing remote workplace investigations, disciplinary and grievance hearing support, employment document drafting, and ongoing HR advice to businesses across the UK.",
-        "areaServed": {
-            "@type": "Country",
-            "name": "United Kingdom"
-        },
-        "priceRange": "$$",
-        "knowsAbout": [
-            "Workplace Investigations",
-            "Disciplinary Hearings",
-            "Grievance Procedures",
-            "Employment Law",
-            "Settlement Agreements",
-            "Redundancy Consultation",
-            "Employment Contracts",
-            "ACAS Code of Practice",
-            "HR Policy Drafting",
-            "Employee Relations"
-        ],
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "HR Services",
-            "itemListElement": [
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "HR Support Plans",
-                        "url": "https://hr.on-call.co.uk/retainers"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Workplace Investigations",
-                        "url": "https://hr.on-call.co.uk/workplace-issues"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Disciplinary & Grievance Hearings",
-                        "url": "https://hr.on-call.co.uk/workplace-issues"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Documents & Drafting",
-                        "url": "https://hr.on-call.co.uk/documents"
-                    }
-                },
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "HR Projects",
-                        "url": "https://hr.on-call.co.uk/pay-as-you-go"
-                    }
-                }
-            ]
-        }
-    }
-    </script>
-
-    <?php if (isset($breadcrumbs) && !empty($breadcrumbs)): ?>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-    <?php foreach ($breadcrumbs as $i => $crumb): ?>
+        "@graph": [
             {
-                "@type": "ListItem",
-                "position": <?php echo $i + 1; ?>,
-                "name": "<?php echo $crumb['name']; ?>"<?php if (isset($crumb['url'])): ?>,
-                "item": "<?php echo $crumb['url']; ?>"<?php endif; ?>
-            }<?php echo ($i < count($breadcrumbs) - 1) ? ',' : ''; ?>
+                "@type": "ProfessionalService",
+                "@id": "https://hr.on-call.co.uk/#organization",
+                "name": "HR On Call",
+                "url": "https://hr.on-call.co.uk/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "@id": "https://hr.on-call.co.uk/#logo",
+                    "url": "https://hr.on-call.co.uk/assets/images/favicon-512x512.png"
+                },
+                "image": "https://hr.on-call.co.uk/assets/images/grace-pariser-profile-v2.webp",
+                "telephone": "01752 425526",
+                "email": "grace@on-call.co.uk",
+                "founder": {
+                    "@type": "Person",
+                    "name": "Grace Pariser",
+                    "jobTitle": "Founder & Lead HR Consultant",
+                    "url": "https://hr.on-call.co.uk/about"
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "GB"
+                },
+                "description": "Expert HR consultants providing remote workplace investigations, disciplinary and grievance hearing support, employment document drafting, and ongoing HR advice to businesses across the UK.",
+                "areaServed": {
+                    "@type": "Country",
+                    "name": "United Kingdom"
+                },
+                "priceRange": "££",
+                "knowsAbout": [
+                    "Workplace Investigations",
+                    "Disciplinary Hearings",
+                    "Grievance Procedures",
+                    "Employment Law",
+                    "Settlement Agreements",
+                    "Redundancy Consultation",
+                    "Employment Contracts",
+                    "ACAS Code of Practice",
+                    "HR Policy Drafting",
+                    "Employee Relations"
+                ],
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "HR Services",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "HR Support Plans",
+                                "url": "https://hr.on-call.co.uk/retainers"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Workplace Investigations",
+                                "url": "https://hr.on-call.co.uk/workplace-issues"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Disciplinary & Grievance Hearings",
+                                "url": "https://hr.on-call.co.uk/workplace-issues"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Documents & Drafting",
+                                "url": "https://hr.on-call.co.uk/documents"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "HR Projects",
+                                "url": "https://hr.on-call.co.uk/pay-as-you-go"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://hr.on-call.co.uk/#website",
+                "url": "https://hr.on-call.co.uk/",
+                "name": "HR On Call",
+                "publisher": { "@id": "https://hr.on-call.co.uk/#organization" },
+                "inLanguage": "en-GB"
+            },
+            {
+                "@type": "WebPage",
+                "@id": "<?php echo $canonicalUrl; ?>#webpage",
+                "url": "<?php echo $canonicalUrl; ?>",
+                "name": <?php echo json_encode($fullTitle); ?>,
+                "isPartOf": { "@id": "https://hr.on-call.co.uk/#website" },
+                "about": { "@id": "https://hr.on-call.co.uk/#organization" },
+                "inLanguage": "en-GB"
+            }<?php if (isset($breadcrumbs) && !empty($breadcrumbs)): ?>,
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+    <?php foreach ($breadcrumbs as $i => $crumb): ?>
+                    {
+                        "@type": "ListItem",
+                        "position": <?php echo $i + 1; ?>,
+                        "name": "<?php echo $crumb['name']; ?>"<?php if (isset($crumb['url'])): ?>,
+                        "item": "<?php echo $crumb['url']; ?>"<?php endif; ?>
+                    }<?php echo ($i < count($breadcrumbs) - 1) ? ',' : ''; ?>
 
     <?php endforeach; ?>
+                ]
+            }<?php endif; ?>
+
         ]
     }
     </script>
-    <?php endif; ?>
 </head>
 <body class="<?php echo $bodyClass ?? ''; ?>">
     <header class="site-header">
