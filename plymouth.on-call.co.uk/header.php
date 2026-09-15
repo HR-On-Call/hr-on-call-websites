@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($isHomepage) && $isHomepage ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME); ?></title>
+    <?php
+    $fullTitle = (isset($isHomepage) && $isHomepage) ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME);
+    $canonicalUrl = SITE_URL . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    ?>
+    <title><?php echo $fullTitle; ?></title>
     <meta name="description" content="<?php echo $pageDescription ?? 'HR On Call - Expert HR consultant in Plymouth offering employment law advice, HR outsourcing and employee relations support for businesses across Devon and Cornwall.'; ?>">
     <meta name="author" content="HR On Call Ltd">
     <meta name="keywords" content="<?php echo $pageKeywords ?? 'HR On Call, HR consultant Plymouth, Plymouth HR services, HR support Devon, HR Cornwall, employment law Plymouth, HR outsourcing'; ?>">
@@ -11,10 +15,10 @@
     <meta name="geo.region" content="GB-DEV">
     <meta name="geo.placename" content="Plymouth">
 
-    <meta property="og:title" content="<?php echo isset($isHomepage) && $isHomepage ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME); ?>">
+    <meta property="og:title" content="<?php echo $fullTitle; ?>">
     <meta property="og:description" content="<?php echo $pageDescription ?? 'HR On Call - Expert HR consultant in Plymouth offering employment law advice, HR outsourcing and employee relations support for businesses across Devon and Cornwall.'; ?>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<?php echo SITE_URL . $_SERVER['REQUEST_URI']; ?>">
+    <meta property="og:url" content="<?php echo $canonicalUrl; ?>">
     <meta property="og:site_name" content="HR On Call">
     <meta property="og:image" content="<?php echo SITE_URL; ?>/assets/images/plymouth-og.png">
     <meta property="og:image:width" content="1200">
@@ -23,7 +27,7 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?php echo isset($isHomepage) && $isHomepage ? $pageTitle : (isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME); ?>">
+    <meta name="twitter:title" content="<?php echo $fullTitle; ?>">
     <meta name="twitter:description" content="<?php echo $pageDescription ?? 'HR On Call - Expert HR consultant in Plymouth offering employment law advice, HR outsourcing and employee relations support for businesses across Devon and Cornwall.'; ?>">
     <meta name="twitter:image" content="<?php echo SITE_URL; ?>/assets/images/plymouth-og.png">
 
@@ -36,7 +40,7 @@
     <link rel="apple-touch-icon" href="/assets/images/favicon-192x192.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#1A2E4A">
-    <link rel="canonical" href="<?php echo SITE_URL . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>">
+    <link rel="canonical" href="<?php echo $canonicalUrl; ?>">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7R7JP3J8T"></script>
@@ -60,77 +64,71 @@
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <!-- Structured Data - WebSite -->
+    <!-- Structured Data: one linked graph, not separate disconnected blocks,
+         so Google can resolve a single coherent entity for the brand. -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "HR On Call",
-        "alternateName": ["HR On Call Ltd", "HR On Call Plymouth"],
-        "url": "https://plymouth.on-call.co.uk/",
-        "inLanguage": "en-GB",
-        "publisher": {
-            "@type": "Organization",
-            "name": "HR On Call",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://plymouth.on-call.co.uk/assets/images/favicon-512x512.png"
+        "@graph": [
+            {
+                "@type": "LocalBusiness",
+                "@id": "<?php echo SITE_URL; ?>/#organization",
+                "name": "HR On Call",
+                "alternateName": ["HR On Call Ltd", "HR On Call Plymouth"],
+                "legalName": "HR On Call Ltd",
+                "url": "<?php echo SITE_URL; ?>/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "@id": "<?php echo SITE_URL; ?>/#logo",
+                    "url": "<?php echo SITE_URL; ?>/assets/images/favicon-512x512.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "image": "<?php echo SITE_URL; ?>/assets/images/grace-pariser-headshot.jpg",
+                "telephone": "<?php echo CONTACT_PHONE; ?>",
+                "email": "<?php echo CONTACT_EMAIL; ?>",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "3 Pethill Close",
+                    "addressLocality": "Plymouth",
+                    "addressRegion": "Devon",
+                    "postalCode": "PL6 8NL",
+                    "addressCountry": "GB"
+                },
+                "description": "Expert HR consultant in Plymouth providing employment law advice, HR outsourcing and employee relations support for businesses across Devon and Cornwall.",
+                "areaServed": [
+                    {"@type": "City", "name": "Plymouth"},
+                    {"@type": "AdministrativeArea", "name": "Devon"},
+                    {"@type": "AdministrativeArea", "name": "Cornwall"}
+                ],
+                "priceRange": "££",
+                "founder": {
+                    "@type": "Person",
+                    "name": "Grace Pariser",
+                    "jobTitle": "Founder & HR Consultant",
+                    "description": "CIPD Level 7 qualified HR consultant specialising in employment law, workplace investigations and employee relations.",
+                    "knowsAbout": ["Employment Law", "HR Outsourcing", "Employee Relations", "Workplace Investigations", "ACAS Conciliation"]
+                }
+            },
+            {
+                "@type": "WebSite",
+                "@id": "<?php echo SITE_URL; ?>/#website",
+                "url": "<?php echo SITE_URL; ?>/",
+                "name": "HR On Call",
+                "alternateName": ["HR On Call Ltd", "HR On Call Plymouth"],
+                "publisher": { "@id": "<?php echo SITE_URL; ?>/#organization" },
+                "inLanguage": "en-GB"
+            },
+            {
+                "@type": "WebPage",
+                "@id": "<?php echo $canonicalUrl; ?>#webpage",
+                "url": "<?php echo $canonicalUrl; ?>",
+                "name": <?php echo json_encode($fullTitle); ?>,
+                "isPartOf": { "@id": "<?php echo SITE_URL; ?>/#website" },
+                "about": { "@id": "<?php echo SITE_URL; ?>/#organization" },
+                "inLanguage": "en-GB"
             }
-        }
-    }
-    </script>
-
-    <!-- Structured Data - Organization -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "HR On Call",
-        "alternateName": "HR On Call Ltd",
-        "legalName": "HR On Call Ltd",
-        "url": "https://plymouth.on-call.co.uk/",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://plymouth.on-call.co.uk/assets/images/favicon-512x512.png",
-            "width": 512,
-            "height": 512
-        },
-        "image": "https://plymouth.on-call.co.uk/assets/images/favicon-512x512.png"
-    }
-    </script>
-
-    <!-- Structured Data - LocalBusiness -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "HR On Call",
-        "image": "<?php echo SITE_URL; ?>/assets/images/grace-pariser-headshot.jpg",
-        "url": "<?php echo SITE_URL; ?>",
-        "telephone": "<?php echo CONTACT_PHONE; ?>",
-        "email": "<?php echo CONTACT_EMAIL; ?>",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "3 Pethill Close",
-            "addressLocality": "Plymouth",
-            "addressRegion": "Devon",
-            "postalCode": "PL6 8NL",
-            "addressCountry": "GB"
-        },
-        "description": "Expert HR consultant in Plymouth providing employment law advice, HR outsourcing and employee relations support for businesses across Devon and Cornwall.",
-        "areaServed": [
-            {"@type": "City", "name": "Plymouth"},
-            {"@type": "AdministrativeArea", "name": "Devon"},
-            {"@type": "AdministrativeArea", "name": "Cornwall"}
-        ],
-        "priceRange": "££",
-        "founder": {
-            "@type": "Person",
-            "name": "Grace Pariser",
-            "jobTitle": "Founder & HR Consultant",
-            "description": "CIPD Level 7 qualified HR consultant specialising in employment law, workplace investigations and employee relations.",
-            "knowsAbout": ["Employment Law", "HR Outsourcing", "Employee Relations", "Workplace Investigations", "ACAS Conciliation"]
-        }
+        ]
     }
     </script>
 </head>
